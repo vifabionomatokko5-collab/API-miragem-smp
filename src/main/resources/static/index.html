@@ -4,23 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Miragem SMP</title>
+    <meta name="theme-color" content="#d89b3c">
+    <meta name="description" content="Miragem SMP — Uma nova realidade está surgindo.">
+
+    <title>Miragem SMP — Uma nova realidade</title>
 
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
 
+<div class="background">
+    <div class="sun"></div>
+    <div class="horizon"></div>
+    <div class="sand-layer sand-one"></div>
+    <div class="sand-layer sand-two"></div>
+</div>
+
 <header class="navbar">
-    <div class="logo">
-        MIRAGEM<span>SMP</span>
-    </div>
+
+    <a href="#inicio" class="logo">
+        <span class="logo-main">MIRAGEM</span>
+        <span class="logo-sub">SMP</span>
+    </a>
 
     <nav>
         <a href="#inicio">Início</a>
-        <a href="#status">Status</a>
+        <a href="#servidor">Servidor</a>
         <a href="#sobre">Sobre</a>
+        <a href="#comunidade">Comunidade</a>
     </nav>
+
+    <a href="https://discord.gg/veSb5CUeAT"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="nav-button">
+        Discord
+    </a>
+
 </header>
 
 <main>
@@ -29,119 +50,298 @@
 
     <div class="hero-content">
 
-        <p class="tag">MIRAGEM SMP</p>
+        <div class="eyebrow">
+            <span class="eyebrow-line"></span>
+            MIRAGEM SMP
+        </div>
 
         <h1>
             Uma nova realidade
             <span>está surgindo.</span>
         </h1>
 
-        <p class="description">
-            Explore, sobreviva, construa sua história
-            e faça parte da Miragem SMP.
+        <p class="hero-description">
+            Entre em um mundo onde cada escolha cria uma nova história.
+            Explore, sobreviva, construa e descubra o que existe além da miragem.
         </p>
 
-        <div class="buttons">
-            <a
-                href="https://discord.gg/veSb5CUeAT"
-                target="_blank"
-                class="button primary"
-            >
-                Entrar no Discord
+        <div class="hero-buttons">
+
+            <a href="https://discord.gg/veSb5CUeAT"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="button button-primary">
+                <span>Entrar no Discord</span>
+                <span class="arrow">→</span>
             </a>
 
-            <a href="#status" class="button secondary">
+            <a href="#servidor" class="button button-secondary">
                 Ver servidor
             </a>
+
+        </div>
+
+        <div class="hero-status">
+            <span id="hero-status-dot" class="mini-dot loading"></span>
+            <span id="hero-status-text">Consultando servidor...</span>
         </div>
 
     </div>
 
+    <div class="hero-decoration">
+
+        <div class="compass">
+            <span>N</span>
+            <span>E</span>
+            <span>S</span>
+            <span>W</span>
+            <div class="compass-center"></div>
+        </div>
+
+    </div>
+
+    <div class="scroll-indicator">
+        <span>EXPLORE</span>
+        <div></div>
+    </div>
+
 </section>
 
-<section id="status" class="section">
 
-    <p class="tag">STATUS</p>
+<section id="servidor" class="section server-section">
 
-    <h2>Servidor Minecraft</h2>
+    <div class="section-heading">
 
-    <div class="status-card">
-
-        <div class="status-header">
-
-            <div>
-                <h3 id="server-name">
-                    Miragem SMP
-                </h3>
-
-                <p id="server-status">
-                    Consultando servidor...
-                </p>
-            </div>
-
-            <div id="status-dot" class="status-dot loading"></div>
-
+        <div class="eyebrow">
+            <span class="eyebrow-line"></span>
+            STATUS
         </div>
 
-        <div class="stats">
+        <h2>
+            O deserto está
+            <span>esperando.</span>
+        </h2>
 
-            <div class="stat">
-                <span>Jogadores</span>
-                <strong id="players">
-                    -
-                </strong>
-            </div>
-
-            <div class="stat">
-                <span>Versão</span>
-                <strong id="version">
-                    -
-                </strong>
-            </div>
-
-            <div class="stat">
-                <span>Capacidade</span>
-                <strong id="max-players">
-                    -
-                </strong>
-            </div>
-
-        </div>
-
-        <p id="last-update" class="last-update">
-            Aguardando dados...
+        <p>
+            Acompanhe o estado atual do servidor Miragem SMP
+            diretamente pela nossa API.
         </p>
 
     </div>
 
+    <div class="server-card">
+
+        <div class="card-glow"></div>
+
+        <div class="server-top">
+
+            <div class="server-title">
+
+                <div class="server-icon">
+                    ✦
+                </div>
+
+                <div>
+                    <span class="small-label">SERVIDOR</span>
+                    <h3 id="server-name">Miragem SMP</h3>
+                </div>
+
+            </div>
+
+            <div class="online-badge">
+
+                <span id="status-dot" class="status-dot loading"></span>
+
+                <span id="server-status">
+                    Consultando...
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="server-divider"></div>
+
+        <div class="server-stats">
+
+            <div class="stat">
+
+                <span class="stat-icon">◈</span>
+
+                <div>
+                    <span class="stat-label">JOGADORES</span>
+                    <strong id="players">-</strong>
+                </div>
+
+            </div>
+
+            <div class="stat">
+
+                <span class="stat-icon">◇</span>
+
+                <div>
+                    <span class="stat-label">VERSÃO</span>
+                    <strong id="version">-</strong>
+                </div>
+
+            </div>
+
+            <div class="stat">
+
+                <span class="stat-icon">♢</span>
+
+                <div>
+                    <span class="stat-label">CAPACIDADE</span>
+                    <strong id="max-players">-</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="server-footer">
+
+            <span id="last-update">
+                Aguardando dados...
+            </span>
+
+            <span class="api-indicator">
+                API
+                <span>●</span>
+            </span>
+
+        </div>
+
+    </div>
+
 </section>
 
-<section id="sobre" class="section about">
 
-    <p class="tag">SOBRE</p>
+<section id="sobre" class="section about-section">
 
-    <h2>Bem-vindo à Miragem</h2>
+    <div class="about-grid">
+
+        <div class="section-heading">
+
+            <div class="eyebrow">
+                <span class="eyebrow-line"></span>
+                A MIRAGEM
+            </div>
+
+            <h2>
+                Mais que um
+                <span>servidor.</span>
+            </h2>
+
+        </div>
+
+        <div class="about-text">
+
+            <p class="large-text">
+                A Miragem SMP nasceu para criar uma experiência
+                diferente dentro do Minecraft.
+            </p>
+
+            <p>
+                Um mundo onde exploração, sobrevivência, economia,
+                comunidade e eventos se encontram para criar histórias
+                que pertencem aos próprios jogadores.
+            </p>
+
+            <p>
+                Aqui, cada jornada pode levar para um lugar diferente.
+                Afinal, no deserto, nem tudo que parece real realmente é.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="comunidade" class="community-section">
+
+    <div class="community-content">
+
+        <div class="eyebrow">
+            <span class="eyebrow-line"></span>
+            COMUNIDADE
+        </div>
+
+        <h2>
+            Encontre sua
+            <span>miragem.</span>
+        </h2>
+
+        <p>
+            Faça parte da comunidade oficial da Miragem SMP,
+            acompanhe novidades, eventos e converse com outros jogadores.
+        </p>
+
+        <a href="https://discord.gg/veSb5CUeAT"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="button button-primary">
+            Entrar na comunidade
+            <span class="arrow">→</span>
+        </a>
+
+    </div>
+
+</section>
+
+
+<section class="quote-section">
+
+    <div class="quote-mark">“</div>
 
     <p>
-        A Miragem SMP é um servidor Minecraft focado
-        em criar uma experiência única para sua comunidade.
+        Nem tudo que você vê no horizonte é aquilo que parece.
     </p>
+
+    <span>— MIRAGEM SMP</span>
 
 </section>
 
 </main>
 
+
 <footer>
 
-    <div class="logo">
-        MIRAGEM<span>SMP</span>
+    <div class="footer-brand">
+
+        <div class="logo">
+            <span class="logo-main">MIRAGEM</span>
+            <span class="logo-sub">SMP</span>
+        </div>
+
+        <p>
+            Uma nova realidade está surgindo.
+        </p>
+
     </div>
 
-    <p>
-        Miragem SMP © 2026
-    </p>
+    <div class="footer-links">
+
+        <a href="#inicio">Início</a>
+        <a href="#servidor">Servidor</a>
+        <a href="#sobre">Sobre</a>
+        <a href="https://discord.gg/veSb5CUeAT"
+           target="_blank"
+           rel="noopener noreferrer">
+            Discord
+        </a>
+
+    </div>
+
+    <div class="footer-bottom">
+        <span>Miragem SMP © 2026</span>
+        <span>Construído para uma nova realidade.</span>
+    </div>
 
 </footer>
+
 
 <script src="/js/app.js"></script>
 

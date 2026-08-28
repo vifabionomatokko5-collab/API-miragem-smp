@@ -1,102 +1,181 @@
 const API_URL = "/api/v1/server";
 
+const elements = {
+    serverName: document.getElementById("server-name"),
+    serverStatus: document.getElementById("server-status"),
+    statusDot: document.getElementById("status-dot"),
+
+    players: document.getElementById("players"),
+    maxPlayers: document.getElementById("max-players"),
+    version: document.getElementById("version"),
+
+    lastUpdate: document.getElementById("last-update"),
+
+    heroStatusDot: document.getElementById("hero-status-dot"),
+    heroStatusText: document.getElementById("hero-status-text")
+};
+
+
+function setStatus(state, text) {
+
+    if (elements.statusDot) {
+        elements.statusDot.className = `status-dot ${state}`;
+    }
+
+    if (elements.heroStatusDot) {
+        elements.heroStatusDot.className = `mini-dot ${state}`;
+    }
+
+    if (elements.serverStatus) {
+        elements.serverStatus.textContent = text;
+    }
+
+    if (elements.heroStatusText) {
+        elements.heroStatusText.textContent = text;
+    }
+}
+
+
+function setText(element, value, fallback = "-") {
+
+    if (!element) {
+        return;
+    }
+
+    element.textContent =
+        value === null ||
+        value === undefined ||
+        value === ""
+            ? fallback
+            : value;
+}
+
+
 async function updateServerStatus() {
 
-    const statusText =
-        document.getElementById("server-status");
-
-    const statusDot =
-        document.getElementById("status-dot");
-
-    const players =
-        document.getElementById("players");
-
-    const maxPlayers =
-        document.getElementById("max-players");
-
-    const version =
-        document.getElementById("version");
-
-    const serverName =
-        document.getElementById("server-name");
-
-    const lastUpdate =
-        document.getElementById("last-update");
+    setStatus("loading", "Consultando servidor...");
 
     try {
 
         const response = await fetch(API_URL, {
-            cache: "no-store"
+            method: "GET",
+            cache: "no-store",
+            headers: {
+                "Accept": "application/json"
+            }
         });
 
         if (!response.ok) {
-            throw new Error(
-                `HTTP ${response.status}`
-            );
+            throw new Error(`HTTP ${response.status}`);
         }
 
         const data = await response.json();
 
-        serverName.textContent =
-            data.name || "Miragem SMP";
+        const online = Boolean(data.online);
 
-        players.textContent =
-            data.players ?? 0;
+        setText(
+            elements.serverName,
+            data.name,
+            "Miragem SMP"
+        );
 
-        maxPlayers.textContent =
-            data.maxPlayers ?? 0;
+        setText(
+            elements.players,
+            data.players,
+            "0"
+        );
 
-        version.textContent =
-            data.version || "-";
+        setText(
+            elements.maxPlayers,
+            data.maxPlayers,
+            "0"
+        );
 
-        if (data.online) {
+        setText(
+            elements.version,
+            data.version,
+            "-"
+        );
 
-            statusText.textContent =
-                "Servidor online";
+        if (online) {
 
-            statusDot.className =
-                "status-dot online";
+            setStatus(
+                "online",
+                "Servidor online"
+            );
 
         } else {
 
-            statusText.textContent =
-                "Servidor offline";
-
-            statusDot.className =
-                "status-dot offline";
+            setStatus(
+                "offline",
+                "Servidor offline"
+            );
         }
 
-        lastUpdate.textContent =
-            "Última atualização: " +
-            new Date().toLocaleTimeString(
-                "pt-BR"
-            );
+        if (elements.lastUpdate) {
+
+            const now = new Date();
+
+            elements.lastUpdate.textContent =
+                "Última atualização: " +
+                now.toLocaleTimeString(
+                    "pt-BR",
+                    {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit"
+                    }
+                );
+        }
 
     } catch (error) {
 
         console.error(
-            "Erro ao consultar servidor:",
+            "[Miragem] Erro ao consultar servidor:",
             error
         );
 
-        statusText.textContent =
-            "Não foi possível consultar o servidor";
+        setStatus(
+            "offline",
+            "Servidor indisponível"
+        );
 
-        statusDot.className =
-            "status-dot offline";
+        setText(elements.players, "-", "-");
+        setText(elements.maxPlayers, "-", "-");
+        setText(elements.version, "-", "-");
 
-        players.textContent = "-";
-        maxPlayers.textContent = "-";
-        version.textContent = "-";
-
-        lastUpdate.textContent =
-            "API temporariamente indisponível";
+        if (elements.lastUpdate) {
+            elements.lastUpdate.textContent =
+                "API temporariamente indisponível";
+        }
     }
 }
 
+
+/*
+ * Atualização inicial.
+ */
 updateServerStatus();
 
+
+/*
+ * Atualiza o status a cada 30 segundos.
+ */
 setInterval(
     updateServerStatus,
     30000
+);
+
+
+/*
+ * Pequena proteção contra erros de navegação.
+ */
+window.addEventListener(
+    "error",
+    event => {
+        console.error(
+            "[Miragem] Erro no site:",
+            event.error || event.message
+        );
+    }
 );
