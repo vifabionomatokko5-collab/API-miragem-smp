@@ -1,8 +1,9 @@
 package br.com.miragem.api.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import br.com.miragem.api.model.ServerStatus;
+import br.com.miragem.api.service.ServerService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -10,15 +11,35 @@ import java.util.Map;
 @RequestMapping("/api/v1/server")
 public class ServerController {
 
+    private final ServerService serverService;
+
+    public ServerController(ServerService serverService) {
+        this.serverService = serverService;
+    }
+
     @GetMapping
     public Map<String, Object> server() {
+        ServerStatus status = serverService.getStatus();
+
         return Map.of(
                 "name", "Miragem SMP",
-                "online", false,
-                "players", 0,
-                "maxPlayers", 100,
-                "version", "1.21.x",
-                "message", "Integração Minecraft será adicionada na próxima etapa."
+                "online", status.online(),
+                "players", status.players(),
+                "maxPlayers", status.maxPlayers(),
+                "version", status.version()
         );
+    }
+
+    @PostMapping("/status")
+    public ResponseEntity<Map<String, Object>> updateStatus(
+            @RequestBody ServerStatus newStatus
+    ) {
+        serverService.updateStatus(newStatus);
+
+        return ResponseEntity.ok(Map.of(
+                "success", true,
+                "message", "Status do servidor atualizado.",
+                "server", serverService.getStatus()
+        ));
     }
 }
