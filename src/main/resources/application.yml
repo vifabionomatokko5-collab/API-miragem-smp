@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: miragem-api
+
+server:
+  port: ${PORT:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+info:
+  app:
+    name: Miragem API
+    version: 1.0.0
