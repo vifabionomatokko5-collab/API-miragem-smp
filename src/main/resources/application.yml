@@ -2,6 +2,23 @@ spring:
   application:
     name: miragem-api
 
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:h2:file:./data/miragem;MODE=PostgreSQL;AUTO_SERVER=TRUE}
+    username: ${SPRING_DATASOURCE_USERNAME:sa}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+
+  h2:
+    console:
+      enabled: false
+
 server:
   port: ${PORT:8080}
 
