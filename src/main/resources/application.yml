@@ -23,6 +23,10 @@ spring:
 server:
   port: ${PORT:8080}
 
+miragem:
+  api:
+    token: ${MIRAGEM_API_TOKEN:}
+
 management:
   endpoints:
     web:
